@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcloud.spelldao.dao.goods.GoodsEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.rcloud.spellentity.entity.goods.GoodsEntity" >
+    <id column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="goods_promotion" property="goodsPromotion" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="lineation_price" property="lineationPrice" jdbcType="INTEGER" />
+    <result column="retail_price" property="retailPrice" jdbcType="INTEGER" />
+    <result column="enter_price" property="enterPrice" jdbcType="INTEGER" />
+    <result column="colonel" property="colonel" jdbcType="INTEGER" />
+    <result column="shipping_fee" property="shippingFee" jdbcType="INTEGER" />
+    <result column="goods_major_img" property="goodsMajorImg" jdbcType="VARCHAR" />
+    <result column="goods_slideshow_img" property="goodsSlideshowImg" jdbcType="VARCHAR" />
+    <result column="goods_details_img" property="goodsDetailsImg" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="is_status" property="isStatus" jdbcType="INTEGER" />
+    <result column="repertory" property="repertory" jdbcType="INTEGER" />
+    <result column="sales_volume" property="salesVolume" jdbcType="INTEGER" />
+    <result column="virtual_sales_volume" property="virtualSalesVolume" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    goods_id, goods_name, goods_promotion, category_id, lineation_price, retail_price, 
+    enter_price, colonel, shipping_fee, goods_major_img, goods_slideshow_img, goods_details_img, 
+    type, is_status, repertory, sales_volume, virtual_sales_volume, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rcloud.spellentity.entity.goods.GoodsEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mall_goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mall_goods
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mall_goods
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rcloud.spellentity.entity.goods.GoodsEntityExample" >
+    delete from mall_goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rcloud.spellentity.entity.goods.GoodsEntity" >
+    insert into mall_goods (goods_id, goods_name, goods_promotion, 
+      category_id, lineation_price, retail_price, 
+      enter_price, colonel, shipping_fee, 
+      goods_major_img, goods_slideshow_img, goods_details_img, 
+      type, is_status, repertory, 
+      sales_volume, virtual_sales_volume, create_time, 
+      update_time)
+    values (#{goodsId,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, #{goodsPromotion,jdbcType=VARCHAR}, 
+      #{categoryId,jdbcType=INTEGER}, #{lineationPrice,jdbcType=INTEGER}, #{retailPrice,jdbcType=INTEGER}, 
+      #{enterPrice,jdbcType=INTEGER}, #{colonel,jdbcType=INTEGER}, #{shippingFee,jdbcType=INTEGER}, 
+      #{goodsMajorImg,jdbcType=VARCHAR}, #{goodsSlideshowImg,jdbcType=VARCHAR}, #{goodsDetailsImg,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{isStatus,jdbcType=INTEGER}, #{repertory,jdbcType=INTEGER}, 
+      #{salesVolume,jdbcType=INTEGER}, #{virtualSalesVolume,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rcloud.spellentity.entity.goods.GoodsEntity" >
+    insert into mall_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        goods_id,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="goodsPromotion != null" >
+        goods_promotion,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="lineationPrice != null" >
+        lineation_price,
+      </if>
+      <if test="retailPrice != null" >
+        retail_price,
+      </if>
+      <if test="enterPrice != null" >
+        enter_price,
+      </if>
+      <if test="colonel != null" >
+        colonel,
+      </if>
+      <if test="shippingFee != null" >
+        shipping_fee,
+      </if>
+      <if test="goodsMajorImg != null" >
+        goods_major_img,
+      </if>
+      <if test="goodsSlideshowImg != null" >
+        goods_slideshow_img,
+      </if>
+      <if test="goodsDetailsImg != null" >
+        goods_details_img,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="isStatus != null" >
+        is_status,
+      </if>
+      <if test="repertory != null" >
+        repertory,
+      </if>
+      <if test="salesVolume != null" >
+        sales_volume,
+      </if>
+      <if test="virtualSalesVolume != null" >
+        virtual_sales_volume,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="goodsId != null" >
+        #{goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPromotion != null" >
+        #{goodsPromotion,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="lineationPrice != null" >
+        #{lineationPrice,jdbcType=INTEGER},
+      </if>
+      <if test="retailPrice != null" >
+        #{retailPrice,jdbcType=INTEGER},
+      </if>
+      <if test="enterPrice != null" >
+        #{enterPrice,jdbcType=INTEGER},
+      </if>
+      <if test="colonel != null" >
+        #{colonel,jdbcType=INTEGER},
+      </if>
+      <if test="shippingFee != null" >
+        #{shippingFee,jdbcType=INTEGER},
+      </if>
+      <if test="goodsMajorImg != null" >
+        #{goodsMajorImg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSlideshowImg != null" >
+        #{goodsSlideshowImg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDetailsImg != null" >
+        #{goodsDetailsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="isStatus != null" >
+        #{isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="repertory != null" >
+        #{repertory,jdbcType=INTEGER},
+      </if>
+      <if test="salesVolume != null" >
+        #{salesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="virtualSalesVolume != null" >
+        #{virtualSalesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rcloud.spellentity.entity.goods.GoodsEntityExample" resultType="java.lang.Integer" >
+    select count(*) from mall_goods
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mall_goods
+    <set >
+      <if test="record.goodsId != null" >
+        goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsName != null" >
+        goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsPromotion != null" >
+        goods_promotion = #{record.goodsPromotion,jdbcType=VARCHAR},
+      </if>
+      <if test="record.categoryId != null" >
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.lineationPrice != null" >
+        lineation_price = #{record.lineationPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.retailPrice != null" >
+        retail_price = #{record.retailPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.enterPrice != null" >
+        enter_price = #{record.enterPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.colonel != null" >
+        colonel = #{record.colonel,jdbcType=INTEGER},
+      </if>
+      <if test="record.shippingFee != null" >
+        shipping_fee = #{record.shippingFee,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsMajorImg != null" >
+        goods_major_img = #{record.goodsMajorImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsSlideshowImg != null" >
+        goods_slideshow_img = #{record.goodsSlideshowImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsDetailsImg != null" >
+        goods_details_img = #{record.goodsDetailsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.isStatus != null" >
+        is_status = #{record.isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.repertory != null" >
+        repertory = #{record.repertory,jdbcType=INTEGER},
+      </if>
+      <if test="record.salesVolume != null" >
+        sales_volume = #{record.salesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="record.virtualSalesVolume != null" >
+        virtual_sales_volume = #{record.virtualSalesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mall_goods
+    set goods_id = #{record.goodsId,jdbcType=VARCHAR},
+      goods_name = #{record.goodsName,jdbcType=VARCHAR},
+      goods_promotion = #{record.goodsPromotion,jdbcType=VARCHAR},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      lineation_price = #{record.lineationPrice,jdbcType=INTEGER},
+      retail_price = #{record.retailPrice,jdbcType=INTEGER},
+      enter_price = #{record.enterPrice,jdbcType=INTEGER},
+      colonel = #{record.colonel,jdbcType=INTEGER},
+      shipping_fee = #{record.shippingFee,jdbcType=INTEGER},
+      goods_major_img = #{record.goodsMajorImg,jdbcType=VARCHAR},
+      goods_slideshow_img = #{record.goodsSlideshowImg,jdbcType=VARCHAR},
+      goods_details_img = #{record.goodsDetailsImg,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      is_status = #{record.isStatus,jdbcType=INTEGER},
+      repertory = #{record.repertory,jdbcType=INTEGER},
+      sales_volume = #{record.salesVolume,jdbcType=INTEGER},
+      virtual_sales_volume = #{record.virtualSalesVolume,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rcloud.spellentity.entity.goods.GoodsEntity" >
+    update mall_goods
+    <set >
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPromotion != null" >
+        goods_promotion = #{goodsPromotion,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="lineationPrice != null" >
+        lineation_price = #{lineationPrice,jdbcType=INTEGER},
+      </if>
+      <if test="retailPrice != null" >
+        retail_price = #{retailPrice,jdbcType=INTEGER},
+      </if>
+      <if test="enterPrice != null" >
+        enter_price = #{enterPrice,jdbcType=INTEGER},
+      </if>
+      <if test="colonel != null" >
+        colonel = #{colonel,jdbcType=INTEGER},
+      </if>
+      <if test="shippingFee != null" >
+        shipping_fee = #{shippingFee,jdbcType=INTEGER},
+      </if>
+      <if test="goodsMajorImg != null" >
+        goods_major_img = #{goodsMajorImg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsSlideshowImg != null" >
+        goods_slideshow_img = #{goodsSlideshowImg,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsDetailsImg != null" >
+        goods_details_img = #{goodsDetailsImg,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="isStatus != null" >
+        is_status = #{isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="repertory != null" >
+        repertory = #{repertory,jdbcType=INTEGER},
+      </if>
+      <if test="salesVolume != null" >
+        sales_volume = #{salesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="virtualSalesVolume != null" >
+        virtual_sales_volume = #{virtualSalesVolume,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rcloud.spellentity.entity.goods.GoodsEntity" >
+    update mall_goods
+    set goods_name = #{goodsName,jdbcType=VARCHAR},
+      goods_promotion = #{goodsPromotion,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      lineation_price = #{lineationPrice,jdbcType=INTEGER},
+      retail_price = #{retailPrice,jdbcType=INTEGER},
+      enter_price = #{enterPrice,jdbcType=INTEGER},
+      colonel = #{colonel,jdbcType=INTEGER},
+      shipping_fee = #{shippingFee,jdbcType=INTEGER},
+      goods_major_img = #{goodsMajorImg,jdbcType=VARCHAR},
+      goods_slideshow_img = #{goodsSlideshowImg,jdbcType=VARCHAR},
+      goods_details_img = #{goodsDetailsImg,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      is_status = #{isStatus,jdbcType=INTEGER},
+      repertory = #{repertory,jdbcType=INTEGER},
+      sales_volume = #{salesVolume,jdbcType=INTEGER},
+      virtual_sales_volume = #{virtualSalesVolume,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where goods_id = #{goodsId,jdbcType=VARCHAR}
+  </update>
+
+
+  <select id="selectByCategoryId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from mall_goods
+    where category_id = #{categoryId,jdbcType=INTEGER}
+  </select>
+</mapper>

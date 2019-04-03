@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcloud.spelldao.dao.team.TeamEntityMapper">
+    <resultMap id="BaseResultMap" type="com.rcloud.spellentity.entity.team.TeamEntity">
+        <id column="team_id" property="teamId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="team_name" property="teamName" jdbcType="VARCHAR"/>
+        <result column="linkman" property="linkman" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="is_status" property="isStatus" jdbcType="INTEGER"/>
+        <result column="longitude" property="longitude" jdbcType="VARCHAR"/>
+        <result column="latitude" property="latitude" jdbcType="VARCHAR"/>
+        <result column="is_delete" property="isDelete" jdbcType="INTEGER"/>
+        <result column="department_id" property="departmentId" jdbcType="VARCHAR"/>
+        <result column="qy_user_id" property="qyUserId" jdbcType="VARCHAR"/>
+        <result column="contact_me_id" property="contactMeId" jdbcType="VARCHAR"/>
+        <association property="userEntity" column="user_id" javaType="com.rcloud.spellentity.entity.user.UserEntity"
+                     select="com.rcloud.spelldao.dao.user.UserEntityMapper.selectByPrimaryKey"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    team_id, user_id, team_name, linkman, phone, address, is_status, longitude, latitude, 
+    is_delete, department_id, qy_user_id, contact_me_id
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.rcloud.spellentity.entity.team.TeamEntityExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from mall_team
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from mall_team
+        where team_id = #{teamId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mall_team
+    where team_id = #{teamId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample" parameterType="com.rcloud.spellentity.entity.team.TeamEntityExample">
+        delete from mall_team
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.rcloud.spellentity.entity.team.TeamEntity">
+    insert into mall_team (team_id, user_id, team_name, 
+      linkman, phone, address, 
+      is_status, longitude, latitude, 
+      is_delete, department_id, qy_user_id, 
+      contact_me_id)
+    values (#{teamId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{teamName,jdbcType=VARCHAR}, 
+      #{linkman,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{isStatus,jdbcType=INTEGER}, #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, 
+      #{isDelete,jdbcType=INTEGER}, #{departmentId,jdbcType=VARCHAR}, #{qyUserId,jdbcType=VARCHAR}, 
+      #{contactMeId,jdbcType=VARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.rcloud.spellentity.entity.team.TeamEntity">
+        insert into mall_team
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="teamId != null">
+                team_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="teamName != null">
+                team_name,
+            </if>
+            <if test="linkman != null">
+                linkman,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="isStatus != null">
+                is_status,
+            </if>
+            <if test="longitude != null">
+                longitude,
+            </if>
+            <if test="latitude != null">
+                latitude,
+            </if>
+            <if test="isDelete != null">
+                is_delete,
+            </if>
+            <if test="departmentId != null">
+                department_id,
+            </if>
+            <if test="qyUserId != null">
+                qy_user_id,
+            </if>
+            <if test="contactMeId != null">
+                contact_me_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="teamId != null">
+                #{teamId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="teamName != null">
+                #{teamName,jdbcType=VARCHAR},
+            </if>
+            <if test="linkman != null">
+                #{linkman,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="isStatus != null">
+                #{isStatus,jdbcType=INTEGER},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                #{isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="departmentId != null">
+                #{departmentId,jdbcType=VARCHAR},
+            </if>
+            <if test="qyUserId != null">
+                #{qyUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="contactMeId != null">
+                #{contactMeId,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.rcloud.spellentity.entity.team.TeamEntityExample"
+            resultType="java.lang.Integer">
+        select count(*) from mall_team
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update mall_team
+        <set>
+            <if test="record.teamId != null">
+                team_id = #{record.teamId,jdbcType=INTEGER},
+            </if>
+            <if test="record.userId != null">
+                user_id = #{record.userId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.teamName != null">
+                team_name = #{record.teamName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.linkman != null">
+                linkman = #{record.linkman,jdbcType=VARCHAR},
+            </if>
+            <if test="record.phone != null">
+                phone = #{record.phone,jdbcType=VARCHAR},
+            </if>
+            <if test="record.address != null">
+                address = #{record.address,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isStatus != null">
+                is_status = #{record.isStatus,jdbcType=INTEGER},
+            </if>
+            <if test="record.longitude != null">
+                longitude = #{record.longitude,jdbcType=VARCHAR},
+            </if>
+            <if test="record.latitude != null">
+                latitude = #{record.latitude,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isDelete != null">
+                is_delete = #{record.isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="record.departmentId != null">
+                department_id = #{record.departmentId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.qyUserId != null">
+                qy_user_id = #{record.qyUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.contactMeId != null">
+                contact_me_id = #{record.contactMeId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update mall_team
+        set team_id = #{record.teamId,jdbcType=INTEGER},
+        user_id = #{record.userId,jdbcType=VARCHAR},
+        team_name = #{record.teamName,jdbcType=VARCHAR},
+        linkman = #{record.linkman,jdbcType=VARCHAR},
+        phone = #{record.phone,jdbcType=VARCHAR},
+        address = #{record.address,jdbcType=VARCHAR},
+        is_status = #{record.isStatus,jdbcType=INTEGER},
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+        is_delete = #{record.isDelete,jdbcType=INTEGER},
+        department_id = #{record.departmentId,jdbcType=VARCHAR},
+        qy_user_id = #{record.qyUserId,jdbcType=VARCHAR},
+        contact_me_id = #{record.contactMeId,jdbcType=VARCHAR}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.rcloud.spellentity.entity.team.TeamEntity">
+        update mall_team
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="teamName != null">
+                team_name = #{teamName,jdbcType=VARCHAR},
+            </if>
+            <if test="linkman != null">
+                linkman = #{linkman,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="isStatus != null">
+                is_status = #{isStatus,jdbcType=INTEGER},
+            </if>
+            <if test="longitude != null">
+                longitude = #{longitude,jdbcType=VARCHAR},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude,jdbcType=VARCHAR},
+            </if>
+            <if test="isDelete != null">
+                is_delete = #{isDelete,jdbcType=INTEGER},
+            </if>
+            <if test="departmentId != null">
+                department_id = #{departmentId,jdbcType=VARCHAR},
+            </if>
+            <if test="qyUserId != null">
+                qy_user_id = #{qyUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="contactMeId != null">
+                contact_me_id = #{contactMeId,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where team_id = #{teamId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.rcloud.spellentity.entity.team.TeamEntity">
+    update mall_team
+    set user_id = #{userId,jdbcType=VARCHAR},
+      team_name = #{teamName,jdbcType=VARCHAR},
+      linkman = #{linkman,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      is_status = #{isStatus,jdbcType=INTEGER},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=INTEGER},
+      department_id = #{departmentId,jdbcType=VARCHAR},
+      qy_user_id = #{qyUserId,jdbcType=VARCHAR},
+      contact_me_id = #{contactMeId,jdbcType=VARCHAR}
+    where team_id = #{teamId,jdbcType=INTEGER}
+  </update>
+
+
+
+
+
+
+
+
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from mall_team
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+</mapper>

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcloud.spelldao.dao.prefecturegoods.PrefectureGoodsEntityMapper">
+    <resultMap id="BaseResultMap" type="com.rcloud.spellentity.entity.prefecturegoods.PrefectureGoodsEntity">
+        <id column="pg_id" property="pgId" jdbcType="INTEGER"/>
+        <result column="prefecture_id" property="prefectureId" jdbcType="INTEGER"/>
+        <result column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="is_show" property="isShow" jdbcType="INTEGER"/>
+        <association property="prefectureEntity" column="prefecture_id"
+                     javaType="com.rcloud.spellentity.entity.prefecture.PrefectureEntity"
+                     select="com.rcloud.spelldao.dao.prefecture.PrefectureEntityMapper.selectByPrimaryKey"/>
+        <association property="goodsEntity" javaType="com.rcloud.spellentity.entity.goods.GoodsEntity"
+                     column="goods_id"
+                     select="com.rcloud.spelldao.dao.goods.GoodsEntityMapper.selectByPrimaryKey"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    pg_id, prefecture_id, goods_id, is_show
+  </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.rcloud.spellentity.entity.prefecturegoods.PrefectureGoodsEntityExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from mall_prefecture_goods
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from mall_prefecture_goods
+        where pg_id = #{pgId,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mall_prefecture_goods
+    where pg_id = #{pgId,jdbcType=INTEGER}
+  </delete>
+    <delete id="deleteByExample"
+            parameterType="com.rcloud.spellentity.entity.prefecturegoods.PrefectureGoodsEntityExample">
+        delete from mall_prefecture_goods
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.rcloud.spellentity.entity.prefecturegoods.PrefectureGoodsEntity">
+    insert into mall_prefecture_goods (pg_id, prefecture_id, goods_id, 
+      is_show)
+    values (#{pgId,jdbcType=INTEGER}, #{prefectureId,jdbcType=INTEGER}, #{goodsId,jdbcType=VARCHAR}, 
+      #{isShow,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="com.rcloud.spellentity.entity.prefecturegoods.PrefectureGoodsEntity">
+        insert into mall_prefecture_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pgId != null">
+                pg_id,
+            </if>
+            <if test="prefectureId != null">
+                prefecture_id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="isShow != null">
+                is_show,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="pgId != null">
+                #{pgId,jdbcType=INTEGER},
+            </if>
+            <if test="prefectureId != null">
+                #{prefectureId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="isShow != null">
+                #{isShow,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample"
+            parameterType="com.rcloud.spellentity.entity.prefecturegoods.PrefectureGoodsEntityExample"
+            resultType="java.lang.Integer">
+        select count(*) from mall_prefecture_goods
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update mall_prefecture_goods
+        <set>
+            <if test="record.pgId != null">
+                pg_id = #{record.pgId,jdbcType=INTEGER},
+            </if>
+            <if test="record.prefectureId != null">
+                prefecture_id = #{record.prefectureId,jdbcType=INTEGER},
+            </if>
+            <if test="record.goodsId != null">
+                goods_id = #{record.goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.isShow != null">
+                is_show = #{record.isShow,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update mall_prefecture_goods
+        set pg_id = #{record.pgId,jdbcType=INTEGER},
+        prefecture_id = #{record.prefectureId,jdbcType=INTEGER},
+        goods_id = #{record.goodsId,jdbcType=VARCHAR},
+        is_show = #{record.isShow,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.rcloud.spellentity.entity.prefecturegoods.PrefectureGoodsEntity">
+        update mall_prefecture_goods
+        <set>
+            <if test="prefectureId != null">
+                prefecture_id = #{prefectureId,jdbcType=INTEGER},
+            </if>
+            <if test="goodsId != null">
+                goods_id = #{goodsId,jdbcType=VARCHAR},
+            </if>
+            <if test="isShow != null">
+                is_show = #{isShow,jdbcType=INTEGER},
+            </if>
+        </set>
+        where pg_id = #{pgId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.rcloud.spellentity.entity.prefecturegoods.PrefectureGoodsEntity">
+    update mall_prefecture_goods
+    set prefecture_id = #{prefectureId,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=VARCHAR},
+      is_show = #{isShow,jdbcType=INTEGER}
+    where pg_id = #{pgId,jdbcType=INTEGER}
+  </update>
+
+    <!--新-->
+    <resultMap id="GoodsBaseResultMap" type="com.rcloud.spellentity.entity.goods.GoodsEntity">
+        <id column="goods_id" property="goodsId" jdbcType="VARCHAR"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="category_id" property="categoryId" jdbcType="INTEGER"/>
+        <result column="lineation_price" property="lineationPrice" jdbcType="INTEGER"/>
+        <result column="retail_price" property="retailPrice" jdbcType="INTEGER"/>
+        <result column="enter_price" property="enterPrice" jdbcType="INTEGER"/>
+        <result column="colonel" property="colonel" jdbcType="INTEGER"/>
+        <result column="shipping_fee" property="shippingFee" jdbcType="INTEGER"/>
+        <result column="goods_major_img" property="goodsMajorImg" jdbcType="VARCHAR"/>
+        <result column="goods_slideshow_img" property="goodsSlideshowImg" jdbcType="VARCHAR"/>
+        <result column="goods_details_img" property="goodsDetailsImg" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="INTEGER"/>
+        <result column="is_status" property="isStatus" jdbcType="INTEGER"/>
+        <result column="repertory" property="repertory" jdbcType="INTEGER"/>
+        <result column="sales_volume" property="salesVolume" jdbcType="INTEGER"/>
+        <result column="virtual_sales_volume" property="virtualSalesVolume" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--专区内商品列表-->
+    <select id="getPrefectureGoodsList" resultMap="GoodsBaseResultMap"
+            parameterType="com.rcloud.spellentity.entity.prefecturegoods.PrefectureGoodsEntity">
+        select mpg.pg_id,mpg.prefecture_id,mpg.goods_id,mpg.is_show,mg.*
+        from mall_prefecture_goods mpg,mall_goods mg
+        where 1 = 1
+        and mpg.goods_id = mg.goods_id
+        and mpg.is_show = 2
+        and mpg.prefecture_id = #{prefectureId}
+    </select>
+
+    <!--未绑定商品列表-->
+    <select id="getGoodsList" resultMap="GoodsBaseResultMap"
+            parameterType="com.rcloud.spellentity.entity.prefecturegoods.PrefectureGoodsEntity">
+    select * from mall_goods
+    where is_status = 2
+    and  goods_id not in (select goods_id from mall_prefecture_goods where prefecture_id = #{prefectureId})
+    </select>
+</mapper>

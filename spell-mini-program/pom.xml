@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.rcloud</groupId>
+        <artifactId>spell-mall</artifactId>
+        <version>0.0.1</version>
+        <relativePath>../pom.xml</relativePath> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.rcloud</groupId>
+    <artifactId>spell-mini-program</artifactId>
+    <version>0.0.1</version>
+    <name>spell-mini-program</name>
+    <description>小程序端</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <!--公共类依赖 start-->
+        <dependency>
+            <groupId>com.rcloud</groupId>
+            <artifactId>spell-common</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <!--公共类依赖 end-->
+
+        <!--实体类依赖 start-->
+        <dependency>
+            <groupId>com.rcloud</groupId>
+            <artifactId>spell-entity</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <!--实体类依赖 end-->
+
+        <!--dao层依赖 start-->
+        <dependency>
+            <groupId>com.rcloud</groupId>
+            <artifactId>spell-dao</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <!--dao层依赖 end-->
+
+        <!--工具层依赖 start-->
+        <dependency>
+            <groupId>com.rcloud</groupId>
+            <artifactId>spell-utils</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+        <!--工具层依赖 end-->
+
+        <!--微信支付工具类-->
+        <dependency>
+            <groupId>com.xucg</groupId>
+            <artifactId>wxpay</artifactId>
+            <version>1.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.rykj</groupId>
+            <artifactId>wx-work-sdk</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                    <optimize>true</optimize>
+                    <debug>true</debug>
+                    <showDeprecation>true</showDeprecation>
+                    <showWarnings>false</showWarnings>
+                    <compilerArguments>
+                        <verbose />
+                        <bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>
+                    </compilerArguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

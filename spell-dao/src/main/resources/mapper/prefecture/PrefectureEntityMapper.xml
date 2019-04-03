@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcloud.spelldao.dao.prefecture.PrefectureEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.rcloud.spellentity.entity.prefecture.PrefectureEntity" >
+    <id column="prefecture_id" property="prefectureId" jdbcType="INTEGER" />
+    <result column="prefecture_name" property="prefectureName" jdbcType="VARCHAR" />
+    <result column="page_path" property="pagePath" jdbcType="VARCHAR" />
+    <result column="is_status" property="isStatus" jdbcType="INTEGER" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    prefecture_id, prefecture_name, page_path, is_status, img_url, create_time, update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rcloud.spellentity.entity.prefecture.PrefectureEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mall_prefecture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mall_prefecture
+    where prefecture_id = #{prefectureId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mall_prefecture
+    where prefecture_id = #{prefectureId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rcloud.spellentity.entity.prefecture.PrefectureEntityExample" >
+    delete from mall_prefecture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rcloud.spellentity.entity.prefecture.PrefectureEntity" >
+    insert into mall_prefecture (prefecture_id, prefecture_name, page_path, 
+      is_status, img_url, create_time, 
+      update_time)
+    values (#{prefectureId,jdbcType=INTEGER}, #{prefectureName,jdbcType=VARCHAR}, #{pagePath,jdbcType=VARCHAR}, 
+      #{isStatus,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rcloud.spellentity.entity.prefecture.PrefectureEntity" >
+    insert into mall_prefecture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="prefectureId != null" >
+        prefecture_id,
+      </if>
+      <if test="prefectureName != null" >
+        prefecture_name,
+      </if>
+      <if test="pagePath != null" >
+        page_path,
+      </if>
+      <if test="isStatus != null" >
+        is_status,
+      </if>
+      <if test="imgUrl != null" >
+        img_url,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="prefectureId != null" >
+        #{prefectureId,jdbcType=INTEGER},
+      </if>
+      <if test="prefectureName != null" >
+        #{prefectureName,jdbcType=VARCHAR},
+      </if>
+      <if test="pagePath != null" >
+        #{pagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isStatus != null" >
+        #{isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null" >
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rcloud.spellentity.entity.prefecture.PrefectureEntityExample" resultType="java.lang.Integer" >
+    select count(*) from mall_prefecture
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mall_prefecture
+    <set >
+      <if test="record.prefectureId != null" >
+        prefecture_id = #{record.prefectureId,jdbcType=INTEGER},
+      </if>
+      <if test="record.prefectureName != null" >
+        prefecture_name = #{record.prefectureName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pagePath != null" >
+        page_path = #{record.pagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isStatus != null" >
+        is_status = #{record.isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgUrl != null" >
+        img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mall_prefecture
+    set prefecture_id = #{record.prefectureId,jdbcType=INTEGER},
+      prefecture_name = #{record.prefectureName,jdbcType=VARCHAR},
+      page_path = #{record.pagePath,jdbcType=VARCHAR},
+      is_status = #{record.isStatus,jdbcType=INTEGER},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rcloud.spellentity.entity.prefecture.PrefectureEntity" >
+    update mall_prefecture
+    <set >
+      <if test="prefectureName != null" >
+        prefecture_name = #{prefectureName,jdbcType=VARCHAR},
+      </if>
+      <if test="pagePath != null" >
+        page_path = #{pagePath,jdbcType=VARCHAR},
+      </if>
+      <if test="isStatus != null" >
+        is_status = #{isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null" >
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where prefecture_id = #{prefectureId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rcloud.spellentity.entity.prefecture.PrefectureEntity" >
+    update mall_prefecture
+    set prefecture_name = #{prefectureName,jdbcType=VARCHAR},
+      page_path = #{pagePath,jdbcType=VARCHAR},
+      is_status = #{isStatus,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where prefecture_id = #{prefectureId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcloud.spelldao.dao.teamapplication.TeamApplicationEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.rcloud.spellentity.entity.teamapplication.TeamApplicationEntity" >
+    <id column="ta_id" property="taId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phoen" property="phoen" jdbcType="VARCHAR" />
+    <result column="community_name" property="communityName" jdbcType="VARCHAR" />
+    <result column="wechat_number" property="wechatNumber" jdbcType="VARCHAR" />
+    <result column="explain" property="explain" jdbcType="VARCHAR" />
+    <result column="is_status" property="isStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ta_id, user_id, name, phoen, community_name, wechat_number, explain, is_status, create_time, 
+    update_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rcloud.spellentity.entity.teamapplication.TeamApplicationEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mall_team_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mall_team_application
+    where ta_id = #{taId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mall_team_application
+    where ta_id = #{taId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rcloud.spellentity.entity.teamapplication.TeamApplicationEntityExample" >
+    delete from mall_team_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rcloud.spellentity.entity.teamapplication.TeamApplicationEntity" >
+    insert into mall_team_application (ta_id, user_id, name, 
+      phoen, community_name, wechat_number, 
+      explain, is_status, create_time, 
+      update_time)
+    values (#{taId,jdbcType=INTEGER}, #{userId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{phoen,jdbcType=VARCHAR}, #{communityName,jdbcType=VARCHAR}, #{wechatNumber,jdbcType=VARCHAR}, 
+      #{explain,jdbcType=VARCHAR}, #{isStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rcloud.spellentity.entity.teamapplication.TeamApplicationEntity" >
+    insert into mall_team_application
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="taId != null" >
+        ta_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phoen != null" >
+        phoen,
+      </if>
+      <if test="communityName != null" >
+        community_name,
+      </if>
+      <if test="wechatNumber != null" >
+        wechat_number,
+      </if>
+      <if test="explain != null" >
+        explain,
+      </if>
+      <if test="isStatus != null" >
+        is_status,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="taId != null" >
+        #{taId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phoen != null" >
+        #{phoen,jdbcType=VARCHAR},
+      </if>
+      <if test="communityName != null" >
+        #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatNumber != null" >
+        #{wechatNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="explain != null" >
+        #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="isStatus != null" >
+        #{isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rcloud.spellentity.entity.teamapplication.TeamApplicationEntityExample" resultType="java.lang.Integer" >
+    select count(*) from mall_team_application
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mall_team_application
+    <set >
+      <if test="record.taId != null" >
+        ta_id = #{record.taId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phoen != null" >
+        phoen = #{record.phoen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.communityName != null" >
+        community_name = #{record.communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechatNumber != null" >
+        wechat_number = #{record.wechatNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.explain != null" >
+        explain = #{record.explain,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isStatus != null" >
+        is_status = #{record.isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mall_team_application
+    set ta_id = #{record.taId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      phoen = #{record.phoen,jdbcType=VARCHAR},
+      community_name = #{record.communityName,jdbcType=VARCHAR},
+      wechat_number = #{record.wechatNumber,jdbcType=VARCHAR},
+      explain = #{record.explain,jdbcType=VARCHAR},
+      is_status = #{record.isStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rcloud.spellentity.entity.teamapplication.TeamApplicationEntity" >
+    update mall_team_application
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phoen != null" >
+        phoen = #{phoen,jdbcType=VARCHAR},
+      </if>
+      <if test="communityName != null" >
+        community_name = #{communityName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatNumber != null" >
+        wechat_number = #{wechatNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="explain != null" >
+        explain = #{explain,jdbcType=VARCHAR},
+      </if>
+      <if test="isStatus != null" >
+        is_status = #{isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ta_id = #{taId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rcloud.spellentity.entity.teamapplication.TeamApplicationEntity" >
+    update mall_team_application
+    set user_id = #{userId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phoen = #{phoen,jdbcType=VARCHAR},
+      community_name = #{communityName,jdbcType=VARCHAR},
+      wechat_number = #{wechatNumber,jdbcType=VARCHAR},
+      explain = #{explain,jdbcType=VARCHAR},
+      is_status = #{isStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where ta_id = #{taId,jdbcType=INTEGER}
+  </update>
+
+
+
+
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mall_team_application
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+</mapper>

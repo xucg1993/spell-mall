@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.rcloud.spelldao.dao.user.UserEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.rcloud.spellentity.entity.user.UserEntity" >
+    <id column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="mp_open_id" property="mpOpenId" jdbcType="VARCHAR" />
+    <result column="miniapp_open_id" property="miniappOpenId" jdbcType="VARCHAR" />
+    <result column="account_balance" property="accountBalance" jdbcType="INTEGER" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="avatar_url" property="avatarUrl" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="country" property="country" jdbcType="VARCHAR" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="is_status" property="isStatus" jdbcType="INTEGER" />
+    <result column="user_ip" property="userIp" jdbcType="VARCHAR" />
+    <result column="union_id" property="unionId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, mp_open_id, miniapp_open_id, account_balance, nick_name, avatar_url, gender, 
+    country, province, city, phone, create_time, update_time, is_status, user_ip, union_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.rcloud.spellentity.entity.user.UserEntityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from mall_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mall_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mall_user
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.rcloud.spellentity.entity.user.UserEntityExample" >
+    delete from mall_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.rcloud.spellentity.entity.user.UserEntity" >
+    insert into mall_user (user_id, mp_open_id, miniapp_open_id, 
+      account_balance, nick_name, avatar_url, 
+      gender, country, province, 
+      city, phone, create_time, 
+      update_time, is_status, user_ip, 
+      union_id)
+    values (#{userId,jdbcType=VARCHAR}, #{mpOpenId,jdbcType=VARCHAR}, #{miniappOpenId,jdbcType=VARCHAR}, 
+      #{accountBalance,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{avatarUrl,jdbcType=VARCHAR}, 
+      #{gender,jdbcType=INTEGER}, #{country,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{isStatus,jdbcType=INTEGER}, #{userIp,jdbcType=VARCHAR}, 
+      #{unionId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.rcloud.spellentity.entity.user.UserEntity" >
+    insert into mall_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="mpOpenId != null" >
+        mp_open_id,
+      </if>
+      <if test="miniappOpenId != null" >
+        miniapp_open_id,
+      </if>
+      <if test="accountBalance != null" >
+        account_balance,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="country != null" >
+        country,
+      </if>
+      <if test="province != null" >
+        province,
+      </if>
+      <if test="city != null" >
+        city,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="isStatus != null" >
+        is_status,
+      </if>
+      <if test="userIp != null" >
+        user_ip,
+      </if>
+      <if test="unionId != null" >
+        union_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="mpOpenId != null" >
+        #{mpOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="miniappOpenId != null" >
+        #{miniappOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountBalance != null" >
+        #{accountBalance,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null" >
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isStatus != null" >
+        #{isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userIp != null" >
+        #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        #{unionId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.rcloud.spellentity.entity.user.UserEntityExample" resultType="java.lang.Integer" >
+    select count(*) from mall_user
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update mall_user
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mpOpenId != null" >
+        mp_open_id = #{record.mpOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.miniappOpenId != null" >
+        miniapp_open_id = #{record.miniappOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountBalance != null" >
+        account_balance = #{record.accountBalance,jdbcType=INTEGER},
+      </if>
+      <if test="record.nickName != null" >
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatarUrl != null" >
+        avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null" >
+        gender = #{record.gender,jdbcType=INTEGER},
+      </if>
+      <if test="record.country != null" >
+        country = #{record.country,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null" >
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null" >
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isStatus != null" >
+        is_status = #{record.isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.userIp != null" >
+        user_ip = #{record.userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unionId != null" >
+        union_id = #{record.unionId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update mall_user
+    set user_id = #{record.userId,jdbcType=VARCHAR},
+      mp_open_id = #{record.mpOpenId,jdbcType=VARCHAR},
+      miniapp_open_id = #{record.miniappOpenId,jdbcType=VARCHAR},
+      account_balance = #{record.accountBalance,jdbcType=INTEGER},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      avatar_url = #{record.avatarUrl,jdbcType=VARCHAR},
+      gender = #{record.gender,jdbcType=INTEGER},
+      country = #{record.country,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      is_status = #{record.isStatus,jdbcType=INTEGER},
+      user_ip = #{record.userIp,jdbcType=VARCHAR},
+      union_id = #{record.unionId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.rcloud.spellentity.entity.user.UserEntity" >
+    update mall_user
+    <set >
+      <if test="mpOpenId != null" >
+        mp_open_id = #{mpOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="miniappOpenId != null" >
+        miniapp_open_id = #{miniappOpenId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountBalance != null" >
+        account_balance = #{accountBalance,jdbcType=INTEGER},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null" >
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="country != null" >
+        country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isStatus != null" >
+        is_status = #{isStatus,jdbcType=INTEGER},
+      </if>
+      <if test="userIp != null" >
+        user_ip = #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="unionId != null" >
+        union_id = #{unionId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.rcloud.spellentity.entity.user.UserEntity" >
+    update mall_user
+    set mp_open_id = #{mpOpenId,jdbcType=VARCHAR},
+      miniapp_open_id = #{miniappOpenId,jdbcType=VARCHAR},
+      account_balance = #{accountBalance,jdbcType=INTEGER},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      country = #{country,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      is_status = #{isStatus,jdbcType=INTEGER},
+      user_ip = #{userIp,jdbcType=VARCHAR},
+      union_id = #{unionId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+
+
+
+
+
+
+  <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mall_user
+    where miniapp_open_id = #{miniappOpenId,jdbcType=VARCHAR}
+  </select>
+</mapper>

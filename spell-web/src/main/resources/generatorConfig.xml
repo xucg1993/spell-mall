@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="gen.properties"/>
+    <classPathEntry
+            location="${location}"/>
+    <context id="my" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://192.168.31.195:3306/spell_mall?serverTimezone=GMT%2B8"
+                        userId="root"
+                        password="102030"/>
+
+        <!-- 生成 entity 实体模型的包名和位置 -->
+        <javaModelGenerator targetPackage="com.rcloud.spellentity.entity.${package.name}"
+                            targetProject="${project.root}\spell-entity\src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+            <property name="rootClass" value="com.rcloud.spellentity.entity.Pages"/>
+        </javaModelGenerator>
+
+        <!-- 生成的映射文件包名和位置 -->
+        <sqlMapGenerator targetPackage="mapper.${package.name}"
+                         targetProject="${project.root}\spell-dao\src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成DAO的包名和位置 -->
+        <javaClientGenerator targetPackage="com.rcloud.spelldao.dao.${package.name}"
+                             targetProject="${project.root}\spell-dao\src\main\java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
+        <table tableName="${table.name}" domainObjectName="${entity.name}"
+               enableInsert="true"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableUpdateByPrimaryKey="true"
+               enableDeleteByExample="true"
+               enableDeleteByPrimaryKey="true"
+               enableSelectByExample="true"
+               selectByExampleQueryId="true"
+               selectByPrimaryKeyQueryId="true"
+               enableSelectByPrimaryKey="true">
+            <!--<generatedKey column="t_id" sqlStatement="select REVERSE(replace(uuid(),'-','')) from dual"/>-->
+            <!--<columnRenamingRule searchString="t_" replaceString=""></columnRenamingRule>-->
+            <!--<columnOverride column="goods_slideshow_img" jdbcType="VARCHAR"/>-->
+            <!--<columnOverride column="goods_details_img" jdbcType="VARCHAR"/>-->
+        </table>
+    </context>
+</generatorConfiguration>
