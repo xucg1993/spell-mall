@@ -65,12 +65,12 @@ pagehelper:
   #阿里oos配置
 ossConfig:
   #Endpoint  请按实际情况填写
-  endpoint: https://oss-cn-beijing.aliyuncs.com/
+  endpoint:
   #阿里云主账号AccessKey
-  accessKeyId: LTAIXRm6Umwgu5R2
+  accessKeyId:
   #阿里云主账号AccessKeySecret
-  accessKeySecret: mClIjOKZ0TlR1M5Z0ylYVHqOAUNBl2
+  accessKeySecret:
   #储存空间名称
-  bucketName: hanchuig
+  bucketName:
   #返回URL
-  resultUrl: https://hanchuig.oss-cn-beijing.aliyuncs.com/
+  resultUrl:
