@@ -63,22 +63,22 @@ ossConfig:
   #Endpoint  请按实际情况填写
   endpoint: https://oss-cn-beijing.aliyuncs.com/
   #阿里云主账号AccessKey
-  accessKeyId: LTAIXRm6Umwgu5R2
+  accessKeyId:
   #阿里云主账号AccessKeySecret
-  accessKeySecret: mClIjOKZ0TlR1M5Z0ylYVHqOAUNBl2
+  accessKeySecret:
   #储存空间名称
-  bucketName: hanchuig
+  bucketName:
   #返回URL
-  resultUrl: https://hanchuig.oss-cn-beijing.aliyuncs.com/
+  resultUrl:
 
 
 wxConfig:
-  appId: wx6517d517c844dd15
-  secret: dc144472dd4e87ef00372158547eae3d
-  callBack: http://ninelives.imwork.net/userOrder/callback
+  appId:
+  secret:
+  callBack:
 
 wxpay:
   enabled: true
-  app-id: wx6517d517c844dd15
-  mch-id: 1500793841
-  pay-key: H68LB0G5CyeFArcYleQh93GYJP6U2a8X
+  app-id:
+  mch-id:
+  pay-key:

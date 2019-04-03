@@ -169,10 +169,10 @@
 
             <properties>
                 <profileActive>prod</profileActive>
-                <service.address>39.98.90.185</service.address>
+                <service.address></service.address>
                 <mysql.user>spell_mall</mysql.user>
-                <mysql.password>2kCpaxNpwdnkpYMT</mysql.password>
-                <redis.password>ARJJ6YU1tlySTdrk</redis.password>
+                <mysql.password></mysql.password>
+                <redis.password></redis.password>
                 <logging.level>DBUG</logging.level>
             </properties>
         </profile>
